@@ -37,12 +37,15 @@
       videoId: videoId,
       playerVars: {
         autoplay: 1, mute: 1, controls: 0, loop: 1, playlist: videoId,
-        modestbranding: 1, playsinline: 1, rel: 0, disablekb: 1, fs: 0
+        modestbranding: 1, playsinline: 1, rel: 0, disablekb: 1, fs: 0,
+        cc_load_policy: 0, cc_lang_pref: 'none', iv_load_policy: 3
       },
       events: {
         onReady: function (e) {
           isReady = true;
           e.target.mute();
+          try { e.target.unloadModule('captions'); } catch (err) {}
+          try { e.target.unloadModule('cc'); } catch (err) {}
           e.target.playVideo();
           requestAnimationFrame(tick);
         },
