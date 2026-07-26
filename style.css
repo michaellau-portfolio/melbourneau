@@ -38,7 +38,10 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: space-between;
   padding: 20px clamp(20px, 5vw, 60px);
-  mix-blend-mode: difference;
+  /* Subtle top-down shade so links stay readable over any video frame */
+  background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 70%, rgba(0,0,0,0));
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  transition: background 0.3s ease;
 }
 .nav__brand {
   font-family: var(--display);
@@ -46,6 +49,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.95rem;
+  color: var(--fg);
 }
 .nav__links {
   display: flex;
@@ -55,10 +59,19 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.8rem;
   letter-spacing: 0.04em;
   color: var(--fg);
-  opacity: 0.85;
-  transition: opacity 0.2s;
+  opacity: 0.92;
+  transition: opacity 0.2s, color 0.2s;
 }
 .nav__links a:hover { opacity: 1; }
+/* Once scrolled past the hero, use a solid slim bar */
+.nav.is-scrolled {
+  background: rgba(13, 13, 13, 0.92);
+  backdrop-filter: blur(8px);
+  padding-top: 14px;
+  padding-bottom: 14px;
+  text-shadow: none;
+  border-bottom: 1px solid var(--line);
+}
 
 /* ===== HERO ===== */
 .hero {
@@ -99,32 +112,76 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none;   /* clicks pass through; controls hidden anyway */
 }
 
-/* Unmute / mute button */
-.hero__sound {
+/* Custom hero control bar (Option 2 — minimal) */
+.hero__controls {
   position: absolute;
-  bottom: clamp(18px, 4vw, 34px);
-  right: clamp(18px, 4vw, 34px);
-  z-index: 3;
+  left: clamp(16px, 4vw, 34px);
+  right: clamp(16px, 4vw, 34px);
+  bottom: clamp(16px, 4vw, 28px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero__btn {
+  flex: none;
+  width: 34px;
+  height: 34px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 16px;
-  font-family: var(--body);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  justify-content: center;
   color: var(--fg);
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(242, 240, 236, 0.35);
-  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(242, 240, 236, 0.45);
+  border-radius: 50%;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
 }
-.hero__sound:hover {
-  background: rgba(0, 0, 0, 0.7);
-  border-color: rgba(242, 240, 236, 0.7);
+.hero__btn:hover {
+  background: rgba(0, 0, 0, 0.65);
+  border-color: rgba(242, 240, 236, 0.85);
 }
-.hero__sound:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.hero__btn:active { transform: scale(0.94); }
+.hero__btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.hero__ic { font-size: 0.72rem; line-height: 1; letter-spacing: 1px; }
+
+.hero__track {
+  position: relative;
+  flex: 1;
+  height: 16px;               /* tall hit area, thin visible bar */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.hero__track::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: rgba(242, 240, 236, 0.28);
+  border-radius: 2px;
+}
+.hero__progress {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--fg);
+  border-radius: 2px;
+}
+.hero__scrub {
+  position: absolute;
+  left: 0%;
+  width: 10px;
+  height: 10px;
+  background: var(--fg);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.1s;
+}
+.hero__track:hover .hero__scrub { transform: translateX(-50%) scale(1.25); }
+
 .hero__overlay {
   position: absolute;
   inset: 0;
@@ -135,7 +192,9 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55));
   pointer-events: none;
+  transition: opacity 0.6s ease;
 }
+.hero__overlay.is-hidden { opacity: 0; }
 .hero__title {
   font-family: var(--display);
   font-weight: 700;
@@ -156,9 +215,21 @@ a { color: inherit; text-decoration: none; }
 .about {
   max-width: 900px;
   margin: 0 auto;
-  padding: clamp(70px, 12vw, 140px) clamp(22px, 6vw, 40px);
+  padding: clamp(70px, 12vw, 140px) clamp(22px, 6vw, 40px) clamp(30px, 5vw, 50px);
   text-align: center;
 }
+.about__photo {
+  width: clamp(110px, 20vw, 160px);
+  height: clamp(110px, 20vw, 160px);
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 1.8rem;
+  display: block;
+  border: 1px solid var(--line);
+  filter: grayscale(30%);
+  transition: filter 0.4s ease;
+}
+.about__photo:hover { filter: grayscale(0%); }
 .about__eyebrow,
 .work__eyebrow {
   font-size: 0.72rem;
@@ -308,6 +379,40 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.8;
 }
 .lightbox__close:hover { opacity: 1; }
+
+/* ===== ABOUT SKILLS ===== */
+.about__skills {
+  margin-top: 2.6rem;
+}
+.about__skills-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.1rem;
+}
+.skills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.skills li {
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: #d0cdc7;
+  padding: 7px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.skills li:hover {
+  border-color: rgba(242, 240, 236, 0.55);
+  color: var(--fg);
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
