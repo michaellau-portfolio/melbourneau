@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Lau | Videographer & Editor</title>
+  <meta name="description" content="Cinematographer and videographer portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Expanded:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a href="#top" class="nav__brand">Michael Lau</a>
+    <nav class="nav__links">
+      <a href="#top">RMIT application</a>
+      <a href="#about">about me</a>
+      <a href="#work">portfolio</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO VIDEO (YouTube, autoplay muted + loop, with unmute button) ===== -->
+  <!--
+    HOW THE HERO WORKS:
+    - Browsers only allow autoplay if the video starts MUTED. So it loops muted,
+      and the viewer taps the sound button to hear it.
+    - To use a different video: change the ID in data-video-id below.
+      Your current video ID is: mkVLIo0mVIE
+    - To use Vimeo instead, see the commented Vimeo block further down.
+  -->
+  <section id="top" class="hero hero--embed" data-video-id="TE5nVfwDsQY">
+    <div class="hero__embed" id="heroEmbed">
+      <!-- YouTube player is inserted here by script.js -->
+    </div>
+    <button class="hero__sound" id="heroSound" aria-label="Unmute video">
+      <span id="heroSoundLabel">&#128263;</span>
+    </button>
+  </section>
+
+  <!--
+    ===== ALTERNATIVE: VIMEO HERO =====
+    If you'd rather host the hero on Vimeo, delete the <section> above and use this.
+    Replace VIMEO_ID with your number (e.g. 76979871). background=1 gives a clean,
+    controls-free looping player.
+
+  <section id="top" class="hero hero--embed">
+    <div class="hero__embed">
+      <iframe
+        src="https://player.vimeo.com/video/VIMEO_ID?autoplay=1&muted=1&loop=1&background=1"
+        frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+    <div class="hero__overlay">
+      <h1 class="hero__title">Michael Lau</h1>
+      <p class="hero__subtitle">Videographer &amp; Photographer</p>
+    </div>
+  </section>
+  -->
+
+  <!-- ===== ABOUT / INTRO ===== -->
+  <section id="about" class="about">
+    <p class="about__eyebrow">about</p>
+    <h2 class="about__lead">
+      Capturing stories through cinematic visuals
+    </h2>
+    <div class="about__body">
+      <p>
+        Melbourne-based videographer and photographer creating high-quality content that connects with people and leaves a lasting impression.
+      </p>
+      <p>
+        With over four years of professional experience, I specialize in videography, photography, editing, color grading,
+        drone cinematography, and audio production. I've worked across real estate, weddings, commercial projects,
+        and branded content, managing productions from planning and filming through to final delivery.
+        I enjoy creating clean, authentic visuals that tell compelling stories while helping clients showcase their brand, business, or special moments.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO GRID ===== -->
+  <section id="work" class="work">
+    <p class="work__eyebrow">selected work</p>
+    <div class="grid">
+      <!--
+        Each tile opens a video in a lightbox when clicked.
+        - data-video: the EMBED url (not the share url!)
+          YouTube: https://www.youtube.com/embed/VIDEO_ID?autoplay=1
+          Vimeo:   https://player.vimeo.com/video/VIDEO_ID?autoplay=1
+        - the <img> is the thumbnail shown in the grid
+        Duplicate a <button class="tile"> block for each new video.
+
+        TIP: for a YouTube grid thumbnail you can reuse YouTube's own image:
+          https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg
+      -->
+      <button class="tile" data-video="https://www.youtube.com/embed/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-01.jpg" alt="Project one" loading="lazy" />
+        <span class="tile__label">Project One</span>
+      </button>
+      <button class="tile" data-video="https://www.youtube.com/embed/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-02.jpg" alt="Project two" loading="lazy" />
+        <span class="tile__label">Project Two</span>
+      </button>
+      <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-03.jpg" alt="Project three" loading="lazy" />
+        <span class="tile__label">Project Three</span>
+      </button>
+      <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-04.jpg" alt="Project four" loading="lazy" />
+        <span class="tile__label">Project Four</span>
+      </button>
+      <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-05.jpg" alt="Project five" loading="lazy" />
+        <span class="tile__label">Project Five</span>
+      </button>
+      <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-06.jpg" alt="Project six" loading="lazy" />
+        <span class="tile__label">Project Six</span>
+      </button>
+            <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-07.jpg" alt="Project seven" loading="lazy" />
+        <span class="tile__label">Project Seven</span>
+      </button>
+            <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-08.jpg" alt="Project eight" loading="lazy" />
+        <span class="tile__label">Project Eight</span>
+      </button>
+            <button class="tile" data-video="https://player.vimeo.com/video/TE5nVfwDsQY?autoplay=1">
+        <img src="images/thumb-09.jpg" alt="Project nine" loading="lazy" />
+        <span class="tile__label">Project Nine</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="contact" class="footer">
+    <div class="footer__inner">
+      <p class="footer__name">Michael Lau</p>
+      <ul class="footer__contact">
+        <li><a href="mailto:michael.tn.lau@gmail.com">michael.tn.lau@gmail.com</a></li>
+        <li><a href="tel:+61405314753">0405 314 753</a></li>
+      </ul>
+      <ul class="footer__social">
+        <li><a href="https://www.instagram.com/mlau.media" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Michael Lau. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close video">&times;</button>
+    <div class="lightbox__frame" id="lightboxFrame"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
